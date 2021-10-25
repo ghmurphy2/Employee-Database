@@ -10,14 +10,14 @@ VALUES
 INSERT INTO role
     (title, salary, department_id)
 VALUES
-    ('Sales Manager', 750000, 1),
-    ('Front End Engineer', 500000, 1),
-    ('Sales Intern', 50000, 1),
-    ('Programming Manager', 1000000, 2),
-    ('Back End Engineer', 1000000, 2),
-    ('Programming Intern', 60000, 2),
-    ('HR Manager', 250000, 3),
-    ('HR Representative', 250000, 3),
+    ('Sales Manager', 75000, 1),
+    ('Front End Engineer', 50000, 1),
+    ('Sales Intern', 5000, 1),
+    ('Programming Manager', 100000, 2),
+    ('Back End Engineer', 100000, 2),
+    ('Programming Intern', 6000, 2),
+    ('HR Manager', 25000, 3),
+    ('HR Representative', 25000, 3),
     ('HR Inter', 50000, 3);
 
 

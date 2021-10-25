@@ -17,6 +17,18 @@ class DB {
               
         )
     }
+    viewAllEmployees(){
+        return this.connection.promise().query(
+            `
+            SELECT 
+                empyloyee.id,
+                employee.name
+            FROM 
+                employee
+              `
+              
+        )
+    }
 
 
 

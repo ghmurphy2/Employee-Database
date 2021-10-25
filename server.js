@@ -49,24 +49,27 @@ function mainMenu() {
 
 mainMenu()
 
-async function viewAllDepartments() {
+function viewAllDepartments() {
   db.viewAllDepartments().then(([rows]) => {
     const departments = rows
     console.table(departments)
+    mainMenu()
   })
 }
 
-viewAllDepartments()
+// viewAllDepartments()
 
 
-async function viewAllEmployees() {
+function viewAllEmployees() {
   db.viewAllEmployees().then(([rows]) => {
     const employees = rows
     console.table(employees)
+    mainMenu()
   })
+ 
 }
 
-viewAllEmployees()
+// viewAllEmployees()
 
 
 async function addEmployee() {
@@ -77,20 +80,22 @@ async function addEmployee() {
   app.use((req, res) => {
     res.status(404).end();
   });
+  mainMenu()
 }
 async function viewIdEmployee() {
-  db.query(`Select * FROM employee WHERE id = ?`, (err, result) => {
+  db.query(`SELECT * FROM employee WHERE id = ?`, (err, result) => {
     if (err) {
       console.log(err);
     }
     console.log("affectedRows: ", result.affectedRows);
     app.use((req, res) => {
       res.status(404).end();
-    }
+    })
 })
+mainMenu()
 }
 
-async function deleteEmployee() {
+function deleteEmployee() {
   db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
     if (err) {
       console.log(err);
@@ -98,8 +103,9 @@ async function deleteEmployee() {
     console.log("affectedRows: ", result.affectedRows);
     app.use((req, res) => {
       res.status(404).end();
-    }
+    })
 })
+mainMenu()
 }
 
 

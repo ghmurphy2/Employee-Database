@@ -9,73 +9,96 @@
 
 const inquirer = require('inquirer')
 const db = require('./db')
+function mainMenu() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'startMenu',
+        message: 'Please select a request from below',
+        choices: ['View all Departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employees role'],
+      },
+    ])
+    .then(res => {
+      switch (res.startMenu) {
+        case 'View all Departments':
+          return viewAllDepartments();
 
-inquirer
-  .prompt([
-    {
-      type: 'rawlist',
-      name: 'reptile',
-      message: 'Please select a request from below',
-      choices: ['View all Departments', 'View all roles', 'View all employees', 'add a department', 'add a role', 'add an employee', 'update an employees role'],
-    },
-  ])
-  .then(answers => {
-    console.info();
-  });
+        case 'View all roles':
+          return viewAllRoles();
 
+        case 'View all employees':
+          return viewAllEmployees();
 
+        case 'Add a department':
+          return addDepartment();
 
+        case 'Add a role':
+          return addRole();
 
-async function viewAllDepartments(){
-    db.viewAllDepartments().then(([rows]) => {
-    const departments = rows 
-    console.table(departments)
-})
+        case 'Add an employee':
+          return addEmployee();
+
+        case 'Update an employee role':
+          return updateEmployee();
+      }
+      console.info();
+    });
 }
- 
+// create selection list, prompt for information, run function to print delete or view from input
+
+mainMenu()
+
+async function viewAllDepartments() {
+  db.viewAllDepartments().then(([rows]) => {
+    const departments = rows
+    console.table(departments)
+  })
+}
+
 viewAllDepartments()
 
 
-async function viewAllEmployees(){
+async function viewAllEmployees() {
   db.viewAllEmployees().then(([rows]) => {
-  const employees = rows 
-  console.table(employees)
-})
+    const employees = rows
+    console.table(employees)
+  })
 }
 
 viewAllEmployees()
 
 
-async function addEmployee(){
+async function addEmployee() {
   db.query('SELECT * FROM employee', function (err, results) {
     console.log(results);
   });
 
   app.use((req, res) => {
     res.status(404).end();
-  }); 
+  });
 }
-async function viewIdEmployee(){
+async function viewIdEmployee() {
   db.query(`Select * FROM employee WHERE id = ?`, (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("affectedRows: ", result.affectedRows);
-      app.use((req, res) => {
-          res.status(404).end();
+    if (err) {
+      console.log(err);
+    }
+    console.log("affectedRows: ", result.affectedRows);
+    app.use((req, res) => {
+      res.status(404).end();
     }
 })
 }
 
-async function deleteEmployee(){
-    db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log("affectedRows: ", result.affectedRows);
-        app.use((req, res) => {
-            res.status(404).end();
-      }
+async function deleteEmployee() {
+  db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("affectedRows: ", result.affectedRows);
+    app.use((req, res) => {
+      res.status(404).end();
+    }
 })
 }
 
@@ -83,5 +106,5 @@ async function deleteEmployee(){
 
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+  console.log(`Server running on port ${PORT}`);
+});

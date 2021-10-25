@@ -3,6 +3,9 @@
 // json data
 // No need to print html
 // use menu, see all deparment employees etc employee id 
+// add list front entry
+// add list type interaction
+// add add , delete, view function
 
 const inquirer = require('inquirer')
 const db = require('./db')
@@ -36,14 +39,14 @@ async function deleteEmployee(){
         }
         console.log("affectedRows: ", result.affectedRows);
         app.use((req, res) => {
-            res.status(404).end();
-      });
-
-
+            res.status(404).end():
+      }
+})
 }
+
 
 
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-  })
+  });

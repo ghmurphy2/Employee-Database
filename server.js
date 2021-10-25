@@ -10,6 +10,19 @@
 const inquirer = require('inquirer')
 const db = require('./db')
 
+inquirer
+  .prompt([
+    {
+      type: 'rawlist',
+      name: 'reptile',
+      message: 'Please select a request from below',
+      choices: ['View all Departments', 'View all roles', 'View all employees', 'add a department', 'add a role', 'add an employee', 'update an employees role'],
+    },
+  ])
+  .then(answers => {
+    console.info();
+  });
+
 
 
 
@@ -42,6 +55,17 @@ async function addEmployee(){
     res.status(404).end();
   }); 
 }
+async function viewIdEmployee(){
+  db.query(`Select * FROM employee WHERE id = ?`, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("affectedRows: ", result.affectedRows);
+      app.use((req, res) => {
+          res.status(404).end();
+    }
+})
+}
 
 async function deleteEmployee(){
     db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
@@ -50,7 +74,7 @@ async function deleteEmployee(){
         }
         console.log("affectedRows: ", result.affectedRows);
         app.use((req, res) => {
-            res.status(404).end():
+            res.status(404).end();
       }
 })
 }

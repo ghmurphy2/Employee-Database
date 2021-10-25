@@ -15,12 +15,23 @@ const db = require('./db')
 
 async function viewAllDepartments(){
     db.viewAllDepartments().then(([rows]) => {
-    const depratments = rows 
-    console.table(depratments)
+    const departments = rows 
+    console.table(departments)
 })
 }
  
 viewAllDepartments()
+
+
+async function viewAllEmployees(){
+  db.viewAllEmployees().then(([rows]) => {
+  const employees = rows 
+  console.table(employees)
+})
+}
+
+viewAllEmployees()
+
 
 async function addEmployee(){
   db.query('SELECT * FROM employee', function (err, results) {

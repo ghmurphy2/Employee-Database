@@ -28,8 +28,8 @@ Project is created with:
 ​
 ​
 ## Modules
--mysql2
--Inquirer
+- mysql2
+- Inquirer
 
 Please be sure to install all dependants before attempting to run this application.
 

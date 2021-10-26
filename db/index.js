@@ -5,7 +5,7 @@ class DB {
         this.connection = connection
     }
     // query methods
-    viewAllDepartments() {
+   viewAllDepartments() {
         return this.connection.promise().query(
             `
             SELECT 
@@ -25,8 +25,8 @@ class DB {
                 employee.id,
                 employee.first_name,
                 employee.last_name,
-                role.name,
-                manager.name
+                employee.manager_id
+               
             FROM 
                 employee
             LEFT JOIN
@@ -36,7 +36,7 @@ class DB {
 
         )
     }
-
+// unknown employee bug
     viewAllRoles() {
         return this.connection.promise().query(
             `
@@ -68,7 +68,7 @@ class DB {
         )
 
     }
-    addDepartment(department) {
+   addDepartment(department) {
         return this.connection.promise().query(
             `
             INSERT INTO 
@@ -90,7 +90,7 @@ class DB {
         )
 
     }
-    updateEmployee(update) {
+updateEmployee(update) {
         return this.connection.promise().query(
             `JOIN INTO
         employee

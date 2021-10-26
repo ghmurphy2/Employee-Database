@@ -25,21 +25,23 @@ const db = require('./db')
 
 
 
-function mainMenu() {
-  inquirer
+async function mainMenu() {
+  let answers = await inquirer
     .prompt([
       {
         type: 'list',
         name: 'startMenu',
         message: 'Please select a request from below',
+        required: true,
         choices: ['View all Departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee'],
       },
       // completed functions viewalldepartment, viewallroles, veiwallemployees,
     ])
-    .then(res => {
-      switch (res.startMenu) {
+    .then(answers => {
+      switch (answers.startMenu) {
         case 'View all Departments':
           return viewAllDepartments();
+          
 
         case 'View all roles':
           return viewAllRoles();
@@ -60,20 +62,22 @@ function mainMenu() {
           return updateEmployee();
       }
       console.info();
+      
     });
+    
 }
 // create selection list, prompt for information, run function to print delete or view from input
 
 mainMenu()
 
-function viewAllDepartments() {
+async function viewAllDepartments() {
   db.viewAllDepartments().then(([rows]) => {
     const departments = rows
     console.table(departments)
     mainMenu()
   })
 }
-function viewAllRoles() {
+async function viewAllRoles() {
   db.viewAllRoles().then(([rows]) => {
     const roles = rows
     console.table(roles)
@@ -84,7 +88,7 @@ function viewAllRoles() {
 // viewAllDepartments()
 
 
-function viewAllEmployees() {
+async function viewAllEmployees() {
   db.viewAllEmployees().then(([rows]) => {
     const employees = rows
     console.table(employees)
@@ -96,7 +100,7 @@ function viewAllEmployees() {
 // viewAllEmployees()
 
 
-function addEmployee() {
+async function addEmployee() {
   inquirer
     .prompt([
       {
@@ -135,7 +139,7 @@ function addEmployee() {
   mainMenu()
 }
 
-function addDepartment() {
+async function addDepartment() {
   inquirer
     .prompt([
       {
@@ -153,7 +157,7 @@ function addDepartment() {
 }
 
 
-function addRole() {
+async function addRole() {
   inquirer
     .prompt([
       {
@@ -182,7 +186,7 @@ function addRole() {
   mainMenu()
 }
 
-function updateEmployee() {
+async function updateEmployee() {
   inquirer
     .prompt([
       {

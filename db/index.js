@@ -1,11 +1,11 @@
-const connection = require('./connection') 
+const connection = require('./connection')
 
 class DB {
-    constructor(connection){
-    this.connection = connection
+    constructor(connection) {
+        this.connection = connection
     }
-// query methods
-    viewAllDepartments(){
+    // query methods
+    viewAllDepartments() {
         return this.connection.promise().query(
             `
             SELECT 
@@ -14,17 +14,37 @@ class DB {
             FROM 
                 department
               `
-              
+
         )
     }
-    viewAllRoles(){
+    viewAllEmployees() {
         return this.connection.promise().query(
             `
             SELECT 
-                role.id,
+                employee.id,
+                employee.first_name,
+                employee.last_name,
+                employee.role_id,
+                role.title
+               
+            FROM 
+                employee
+
+            LEFT JOIN
+                role ON employee.role_id = role.id
+              `
+
+        )
+    }
+
+    viewAllRoles() {
+        return this.connection.promise().query(
+            `
+            SELECT 
+                role.id ,
                 role.title,
                 role.salary,
-                department.name
+                department.name AS Department
 
             FROM 
                 role
@@ -32,22 +52,52 @@ class DB {
             LEFT JOIN 
                 department ON role.department_id = department.id
               `
-              
-        )
-    }
-    viewAllEmployees(){
-        return this.connection.promise().query(
-            `
-            SELECT 
-                empyloyee.id,
-                employee.name
-            FROM 
-                employee
-              `
-              
+
         )
     }
 
+    addEmployee(employee) {
+        return this.connection.promise().query(
+            `
+            INSERT INTO 
+                employee 
+            SET 
+                ? `, employee
+
+        )
+
+    }
+    addDepartment(department) {
+        return this.connection.promise().query(
+            `
+            INSERT INTO 
+                department
+            SET 
+                ? `, department
+
+        )
+
+    }
+    addRole(role) {
+        return this.connection.promise().query(
+            `
+            INSERT INTO 
+                role
+            SET 
+                ? `, role
+
+        )
+
+    }
+    updateEmployee(update) {
+        return this.connection.promise().query(
+            `JOIN INTO
+        employee
+        SET
+        ?`, update
+
+        )
+    }
 
 
 
@@ -62,3 +112,4 @@ class DB {
 }
 
 module.exports = new DB(connection)
+// order by gain of function?

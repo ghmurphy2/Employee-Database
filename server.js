@@ -72,16 +72,47 @@ function viewAllEmployees() {
 // viewAllEmployees()
 
 
-async function addEmployee() {
-  db.query('SELECT * FROM employee', function (err, results) {
-    console.log(results);
-  });
+function addEmployee() {
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      name:'first_name',
+      message:'What is this employees first name?'
+    
+    },
+    {
+      type: 'input',
+      name:'last_name',
+      message:'What is this employees last name?'
 
-  app.use((req, res) => {
-    res.status(404).end();
-  });
+    }
+    ,
+    {
+      type: 'input',
+      name:'role_id',
+      message:'What is this employees role ID?'
+
+    }
+    ,
+    {
+      type: 'input',
+      name:'manager_id',
+      message:'What is this employees first name?'
+
+    }
+
+      /* Pass your questions in here */
+    ])
+    .then((res) => {
+      db.addEmployee(res)
+      // Use user feedback for... whatever!!
+    })
+    
   mainMenu()
 }
+
+
 async function viewIdEmployee() {
   db.query(`SELECT * FROM employee WHERE id = ?`, (err, result) => {
     if (err) {

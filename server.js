@@ -9,21 +9,6 @@
 
 const inquirer = require('inquirer')
 const db = require('./db')
-// const figlet = require('figlet')
-
-
-
-// figlet('Employee Database', function (err, data) {
-//   if (err) {
-//     console.log('Something went wrong...');
-//     console.dir(err);
-//     return;
-//   }
-//   console.log(data)
-// });
-
-
-
 
 async function mainMenu() {
   inquirer

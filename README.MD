@@ -13,9 +13,10 @@
 This project was created mainly using Node.js to take user input and create tables of employee and department data. These tables can be modified and called on to return added and seed data.
 ​
 ​
-Deployed link: 
+### Github Repository
 ​https://github.com/ghmurphy2/Employee-Database
 ​
+### Demo Video
 https://watch.screencastify.com/v/zR13Aj3nYBvsdUhWIrYD
 ​
 ## Technologies

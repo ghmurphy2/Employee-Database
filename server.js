@@ -9,6 +9,20 @@
 
 const inquirer = require('inquirer')
 const db = require('./db')
+const figlet = require('figlet')
+
+figlet('Employee Database', function(err, data) {
+    if (err) {
+        console.log('Something went wrong...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+});
+
+
+
+
 function mainMenu() {
   inquirer
     .prompt([
@@ -16,8 +30,9 @@ function mainMenu() {
         type: 'list',
         name: 'startMenu',
         message: 'Please select a request from below',
-        choices: ['View all Departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employees role'],
+        choices: ['View all Departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee'],
       },
+      // completed functions viewalldepartment, viewallroles, veiwallemployees,
     ])
     .then(res => {
       switch (res.startMenu) {
@@ -53,6 +68,13 @@ function viewAllDepartments() {
   db.viewAllDepartments().then(([rows]) => {
     const departments = rows
     console.table(departments)
+    mainMenu()
+  })
+}
+function viewAllRoles() {
+  db.viewAllRoles().then(([rows]) => {
+    const roles = rows
+    console.table(roles)
     mainMenu()
   })
 }
@@ -98,46 +120,131 @@ function addEmployee() {
     {
       type: 'input',
       name:'manager_id',
-      message:'What is this employees first name?'
+      message:'Please enter this employees manager ID, if they have one.'
 
     }
 
-      /* Pass your questions in here */
     ])
     .then((res) => {
       db.addEmployee(res)
-      // Use user feedback for... whatever!!
+     
+    })
+    
+  mainMenu()
+}
+
+function addDepartment() {
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      name:'name',
+      message:'What is the name of this new department?'
+    
+    }
+    ])
+    .then((res) => {
+      db.addDepartment(res)
+    })
+
+  mainMenu()
+}
+
+
+function addRole() {
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      name:'name',
+      message:'What is the name of this new role?'
+    
+    },
+    {
+      type: 'input',
+      name:'name',
+      message:'What is the salary for this new role?'
+    
+    },
+    {
+      type: 'input',
+      name:'name',
+      message:'Which department is the role working under?'
+    
+    }
+    ])
+    .then((res) => {
+      db.addRole(res)
+    })
+
+  mainMenu()
+}
+
+function updateEmployee(){
+  inquirer
+  .prompt([
+    {
+      type: 'input',
+      name:'first_name',
+      message:'What is this employees first name?'
+    
+    },
+    {
+      type: 'input',
+      name:'last_name',
+      message:'What is this employees last name?'
+
+    }
+    ,
+    {
+      type: 'input',
+      name:'role_id',
+      message:'What is this employees role ID?'
+
+    }
+    ,
+    {
+      type: 'input',
+      name:'manager_id',
+      message:'Please enter this employees manager ID, if they have one.'
+
+    }
+
+    ])
+    .then((res) => {
+      db.updateEmployee(res)
+     
     })
     
   mainMenu()
 }
 
 
-async function viewIdEmployee() {
-  db.query(`SELECT * FROM employee WHERE id = ?`, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log("affectedRows: ", result.affectedRows);
-    app.use((req, res) => {
-      res.status(404).end();
-    })
-})
-mainMenu()
-}
+// async function viewIdEmployee() {
+//   db.query(`SELECT * FROM employee WHERE id = ?`, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log("affectedRows: ", result.affectedRows);
+//     app.use((req, res) => {
+//       res.status(404).end();
+//     })
+// })
+// mainMenu()
+// }
 
-function deleteEmployee() {
-  db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log("affectedRows: ", result.affectedRows);
-    app.use((req, res) => {
-      res.status(404).end();
-    })
-})
-mainMenu()
-}
+// function deleteEmployee() {
+//   db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log("affectedRows: ", result.affectedRows);
+//     app.use((req, res) => {
+//       res.status(404).end();
+//     })
+// })
+// mainMenu()
+// }
 
 
 

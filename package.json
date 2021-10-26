@@ -20,6 +20,7 @@
   "homepage": "https://github.com/ghmurphy2/Employee-Database#readme",
   "dependencies": {
     "console.table": "^0.10.0",
+    "figlet": "^1.5.2",
     "inquirer": "^8.2.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.2",

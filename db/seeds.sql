@@ -18,7 +18,7 @@ VALUES
     ('Programming Intern', 6000, 2),
     ('HR Manager', 25000, 3),
     ('HR Representative', 25000, 3),
-    ('HR Inter', 50000, 3);
+    ('HR Intern', 50000, 3);
 
 
 INSERT INTO employee 

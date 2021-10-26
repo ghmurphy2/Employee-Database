@@ -9,16 +9,18 @@
 
 const inquirer = require('inquirer')
 const db = require('./db')
-const figlet = require('figlet')
+// const figlet = require('figlet')
 
-figlet('Employee Database', function(err, data) {
-    if (err) {
-        console.log('Something went wrong...');
-        console.dir(err);
-        return;
-    }
-    console.log(data)
-});
+
+
+// figlet('Employee Database', function (err, data) {
+//   if (err) {
+//     console.log('Something went wrong...');
+//     console.dir(err);
+//     return;
+//   }
+//   console.log(data)
+// });
 
 
 
@@ -54,7 +56,7 @@ function mainMenu() {
         case 'Add an employee':
           return addEmployee();
 
-        case 'Update an employee role':
+        case 'Update an employee':
           return updateEmployee();
       }
       console.info();
@@ -88,7 +90,7 @@ function viewAllEmployees() {
     console.table(employees)
     mainMenu()
   })
- 
+
 }
 
 // viewAllEmployees()
@@ -96,52 +98,52 @@ function viewAllEmployees() {
 
 function addEmployee() {
   inquirer
-  .prompt([
-    {
-      type: 'input',
-      name:'first_name',
-      message:'What is this employees first name?'
-    
-    },
-    {
-      type: 'input',
-      name:'last_name',
-      message:'What is this employees last name?'
+    .prompt([
+      {
+        type: 'input',
+        name: 'first_name',
+        message: 'What is this employees first name?'
 
-    }
-    ,
-    {
-      type: 'input',
-      name:'role_id',
-      message:'What is this employees role ID?'
+      },
+      {
+        type: 'input',
+        name: 'last_name',
+        message: 'What is this employees last name?'
 
-    }
-    ,
-    {
-      type: 'input',
-      name:'manager_id',
-      message:'Please enter this employees manager ID, if they have one.'
+      }
+      ,
+      {
+        type: 'input',
+        name: 'role_id',
+        message: 'What is this employees role ID?'
 
-    }
+      }
+      ,
+      {
+        type: 'input',
+        name: 'manager_id',
+        message: 'Please enter this employees manager ID, if they have one.'
+
+      }
 
     ])
     .then((res) => {
       db.addEmployee(res)
-     
+
     })
-    
+
   mainMenu()
 }
 
 function addDepartment() {
   inquirer
-  .prompt([
-    {
-      type: 'input',
-      name:'name',
-      message:'What is the name of this new department?'
-    
-    }
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the name of this new department?'
+
+      }
     ])
     .then((res) => {
       db.addDepartment(res)
@@ -153,25 +155,25 @@ function addDepartment() {
 
 function addRole() {
   inquirer
-  .prompt([
-    {
-      type: 'input',
-      name:'name',
-      message:'What is the name of this new role?'
-    
-    },
-    {
-      type: 'input',
-      name:'name',
-      message:'What is the salary for this new role?'
-    
-    },
-    {
-      type: 'input',
-      name:'name',
-      message:'Which department is the role working under?'
-    
-    }
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the name of this new role?'
+
+      },
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the salary for this new role?'
+
+      },
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Which department is the role working under?'
+
+      }
     ])
     .then((res) => {
       db.addRole(res)
@@ -180,42 +182,42 @@ function addRole() {
   mainMenu()
 }
 
-function updateEmployee(){
+function updateEmployee() {
   inquirer
-  .prompt([
-    {
-      type: 'input',
-      name:'first_name',
-      message:'What is this employees first name?'
-    
-    },
-    {
-      type: 'input',
-      name:'last_name',
-      message:'What is this employees last name?'
+    .prompt([
+      {
+        type: 'input',
+        name: 'first_name',
+        message: 'What is this employees first name?'
 
-    }
-    ,
-    {
-      type: 'input',
-      name:'role_id',
-      message:'What is this employees role ID?'
+      },
+      {
+        type: 'input',
+        name: 'last_name',
+        message: 'What is this employees last name?'
 
-    }
-    ,
-    {
-      type: 'input',
-      name:'manager_id',
-      message:'Please enter this employees manager ID, if they have one.'
+      }
+      ,
+      {
+        type: 'input',
+        name: 'role_id',
+        message: 'What is this employees role ID?'
 
-    }
+      }
+      ,
+      {
+        type: 'input',
+        name: 'manager_id',
+        message: 'Please enter this employees manager ID, if they have one.'
+
+      }
 
     ])
     .then((res) => {
       db.updateEmployee(res)
-     
+
     })
-    
+
   mainMenu()
 }
 

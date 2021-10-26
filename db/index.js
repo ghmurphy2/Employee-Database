@@ -17,6 +17,7 @@ class DB {
 
         )
     }
+    // alldepartments clean and working
     viewAllEmployees() {
         return this.connection.promise().query(
             `
@@ -24,14 +25,13 @@ class DB {
                 employee.id,
                 employee.first_name,
                 employee.last_name,
-                employee.role_id,
-                role.title
-               
+                role.name,
+                manager.name
             FROM 
                 employee
-
             LEFT JOIN
                 role ON employee.role_id = role.id
+                
               `
 
         )
@@ -41,7 +41,7 @@ class DB {
         return this.connection.promise().query(
             `
             SELECT 
-                role.id ,
+                role.id,
                 role.title,
                 role.salary,
                 department.name AS Department
@@ -55,6 +55,7 @@ class DB {
 
         )
     }
+    // allroles clean and working
 
     addEmployee(employee) {
         return this.connection.promise().query(

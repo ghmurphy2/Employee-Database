@@ -26,7 +26,7 @@ const db = require('./db')
 
 
 async function mainMenu() {
-  let answers = await inquirer
+  inquirer
     .prompt([
       {
         type: 'list',
@@ -36,8 +36,7 @@ async function mainMenu() {
         choices: ['View all Departments', 'View all roles', 'View all employees', 'Add a department', 'Add a role', 'Add an employee', 'Update an employee'],
       },
       // completed functions viewalldepartment, viewallroles, veiwallemployees,
-    ])
-    .then(answers => {
+    ]).then(answers => {
       switch (answers.startMenu) {
         case 'View all Departments':
           return viewAllDepartments();
@@ -70,14 +69,15 @@ async function mainMenu() {
 
 mainMenu()
 
-async function viewAllDepartments() {
+function viewAllDepartments() {
   db.viewAllDepartments().then(([rows]) => {
     const departments = rows
     console.table(departments)
     mainMenu()
   })
 }
-async function viewAllRoles() {
+
+function viewAllRoles() {
   db.viewAllRoles().then(([rows]) => {
     const roles = rows
     console.table(roles)
@@ -85,10 +85,10 @@ async function viewAllRoles() {
   })
 }
 
-// viewAllDepartments()
+// // viewAllDepartments()
 
 
-async function viewAllEmployees() {
+function viewAllEmployees() {
   db.viewAllEmployees().then(([rows]) => {
     const employees = rows
     console.table(employees)
@@ -97,10 +97,10 @@ async function viewAllEmployees() {
 
 }
 
-// viewAllEmployees()
+// // viewAllEmployees()
 
 
-async function addEmployee() {
+function addEmployee() {
   inquirer
     .prompt([
       {
@@ -133,13 +133,12 @@ async function addEmployee() {
     ])
     .then((res) => {
       db.addEmployee(res)
+      return mainMenu()
 
     })
-
-  mainMenu()
 }
 
-async function addDepartment() {
+function addDepartment() {
   inquirer
     .prompt([
       {
@@ -151,13 +150,14 @@ async function addDepartment() {
     ])
     .then((res) => {
       db.addDepartment(res)
+      return mainMenu()
     })
 
-  mainMenu()
+  
 }
 
 
-async function addRole() {
+function addRole() {
   inquirer
     .prompt([
       {
@@ -181,12 +181,13 @@ async function addRole() {
     ])
     .then((res) => {
       db.addRole(res)
+      return mainMenu()
     })
 
-  mainMenu()
+ 
 }
 
-async function updateEmployee() {
+function updateEmployee() {
   inquirer
     .prompt([
       {
@@ -219,42 +220,29 @@ async function updateEmployee() {
     ])
     .then((res) => {
       db.updateEmployee(res)
-
+      return mainMenu()
     })
 
-  mainMenu()
+ 
 }
 
 
-// async function viewIdEmployee() {
-//   db.query(`SELECT * FROM employee WHERE id = ?`, (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     console.log("affectedRows: ", result.affectedRows);
-//     app.use((req, res) => {
-//       res.status(404).end();
-//     })
-// })
-// mainMenu()
-// }
-
-// function deleteEmployee() {
-//   db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     console.log("affectedRows: ", result.affectedRows);
-//     app.use((req, res) => {
-//       res.status(404).end();
-//     })
-// })
-// mainMenu()
-// }
+// // function deleteEmployee() {
+// //   db.query(`DELETE employee WHERE id = ?`, 3, (err, result) => {
+// //     if (err) {
+// //       console.log(err);
+// //     }
+// //     console.log("affectedRows: ", result.affectedRows);
+// //     app.use((req, res) => {
+// //       res.status(404).end();
+// //     })
+// // })
+// // mainMenu()
+// // }
 
 
 
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
